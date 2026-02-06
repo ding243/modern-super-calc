@@ -7,8 +7,8 @@
 | Version | Supported |
 | Version |  Status  |   Notes  |
 | ------- | -------  | -------- |
-|   V.2   |version   | ( Bug fix supported )|
-|   V.1   |Current ✅| ( Stop. Editing supported )|
+|   V.2   |Current ✅| ( Bug fix supported )|
+|   V.1   | version  | ( Stop. Editing supported )|
 
 ## Reporting a Vulnerability
 
