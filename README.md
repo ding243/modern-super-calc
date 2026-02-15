@@ -47,7 +47,9 @@
     ```bash
     python Modern_super_calc_v2_Hacker.py
     ```
-
+    ***bash
+    python Modern_super_calc_v2.1_Hacker.py
+    ```
 ---
 
 ## 🚀 แผนงานในอนาคต (Roadmap)
