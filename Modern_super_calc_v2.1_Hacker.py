@@ -1,9 +1,9 @@
 # -----------------------------------------------------------
-#  Project: Super Multi-Calculator PRO 2026 (Hacker Edition)
-#  Developed by: ding243
+#  Project: Super Multi-Calculator PRO 2026 (Hacker Perfect Edition)
+#  Developed by: Ding243
 #  AI Partner: Google Gemini
-#  Concept: "Human Imagination + AI Logic = Unlimited Possibilities"
-#  Status: V2 (Fixed Navigation & Logic Flow)
+#  Status: V2.1 (Universal Base + Security Firewall)
+#  Concept: "Secure, Smart, and Powerful"
 # -----------------------------------------------------------
 
 from datetime import datetime, timedelta
@@ -18,10 +18,10 @@ class SuperCalc(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("Super Multi-Calculator PRO 2026 (Hacker Edition)")
-        self.geometry("500x650")
+        self.title("Super Multi-Calculator PRO 2026 (Hacker Perfect v2.1)")
+        self.geometry("500x750")
 
-        self.tab_control = ctk.CTkTabview(self, width=450, height=500)
+        self.tab_control = ctk.CTkTabview(self, width=450, height=620)
         self.tab_control.pack(pady=20, padx=20)
         
         self.tab_gen = self.tab_control.add("🧮 ทั่วไป")
@@ -30,7 +30,6 @@ class SuperCalc(ctk.CTk):
         self.tab2 = self.tab_control.add("💰 คอมมิชชั่น")
         self.tab3 = self.tab_control.add("📜 ประวัติ")
 
-        # สร้างหน้าจอ
         self.setup_general_tab()
         self.setup_programmer_tab()
         self.setup_tab1()
@@ -45,14 +44,13 @@ class SuperCalc(ctk.CTk):
         
         self.cleanup_old_logs(days=3)
         self.refresh_history()
-        
         self.bind_keys() 
     
     def setup_general_tab(self):
         ctk.CTkLabel(self.tab_gen, text="เครื่องคิดเลขสามัญ", font=("Sarabun", 20, "bold")).pack(pady=10)
         
-        self.ent_gen = ctk.CTkEntry(self.tab_gen, placeholder_text=" พิมพ์โจทย์ (เช่น 10+2*5)", 
-                                    width=350, height=50, justify="right", font=("Prompt", 24))
+        self.ent_gen = ctk.CTkEntry(self.tab_gen, placeholder_text="พิมพ์โจทย์ (เช่น 10+2*5)", 
+                                    width=350, height=50, justify="right", font=("Consolas", 24))
         self.ent_gen.pack(pady=10)
 
         self.btn_calc_gen = ctk.CTkButton(self.tab_gen, text="คำนวณ (=)", 
@@ -70,34 +68,42 @@ class SuperCalc(ctk.CTk):
         self.btn_go_hack.pack(pady=30, side="bottom")
 
     def setup_programmer_tab(self):
-        ctk.CTkLabel(self.tab_prog, text="💻 Base Converter", 
+        ctk.CTkLabel(self.tab_prog, text="💻 Universal Base Converter", 
                      font=("Consolas", 20, "bold"), text_color="#00FF00").pack(pady=10)
         
-        ctk.CTkLabel(self.tab_prog, text="เลขฐาน 10 (Decimal):", font=("Sarabun", 14)).pack(pady=5)
-        self.ent_prog = ctk.CTkEntry(self.tab_prog, placeholder_text="Ex. 128", 
+        ctk.CTkLabel(self.tab_prog, text="1. ตัวเลข (Number):", font=("Sarabun", 14)).pack(pady=2)
+        self.ent_prog_num = ctk.CTkEntry(self.tab_prog, placeholder_text="เช่น FF, 101, 128", 
                                      width=250, height=40, justify="center", font=("Consolas", 18))
-        self.ent_prog.pack(pady=5)
+        self.ent_prog_num.pack(pady=5)
 
-        self.btn_convert = ctk.CTkButton(self.tab_prog, text="แปลงเลขฐาน ⬇", 
+        ctk.CTkLabel(self.tab_prog, text="2. ฐาน (Base):", font=("Sarabun", 14)).pack(pady=2)
+        self.ent_prog_base = ctk.CTkEntry(self.tab_prog, placeholder_text="เช่น 10, 16, 2, 8", 
+                                     width=250, height=40, justify="center", font=("Consolas", 18))
+        self.ent_prog_base.pack(pady=5)
+        self.ent_prog_base.insert(0, "10")
+
+        self.btn_convert = ctk.CTkButton(self.tab_prog, text="แปลงค่าเดี๋ยวนี้ ⬇", 
                                        fg_color="#222", hover_color="#444",
                                        border_color="#00FF00", border_width=1,
                                        command=self.convert_base)
         self.btn_convert.pack(pady=15)
 
         res_frame = ctk.CTkFrame(self.tab_prog, fg_color="#1a1a1a")
-        res_frame.pack(padx=20, pady=10, fill="x")
+        res_frame.pack(padx=20, pady=5, fill="x")
 
+        self.lbl_dec = ctk.CTkLabel(res_frame, text="DEC (10): -", font=("Consolas", 16), anchor="w", text_color="#00FF00")
+        self.lbl_dec.pack(fill="x", padx=15, pady=5)
         self.lbl_hex = ctk.CTkLabel(res_frame, text="HEX (16): -", font=("Consolas", 16), anchor="w", text_color="#00FF00")
-        self.lbl_hex.pack(fill="x", padx=15, pady=8)
+        self.lbl_hex.pack(fill="x", padx=15, pady=5)
         self.lbl_oct = ctk.CTkLabel(res_frame, text="OCT (8) : -", font=("Consolas", 16), anchor="w", text_color="#00FF00")
-        self.lbl_oct.pack(fill="x", padx=15, pady=8)
+        self.lbl_oct.pack(fill="x", padx=15, pady=5)
         self.lbl_bin = ctk.CTkLabel(res_frame, text="BIN (2) : -", font=("Consolas", 16), anchor="w", text_color="#00FF00")
-        self.lbl_bin.pack(fill="x", padx=15, pady=8)
+        self.lbl_bin.pack(fill="x", padx=15, pady=5)
 
         self.btn_back_calc = ctk.CTkButton(self.tab_prog, text="⬅ กลับไปเครื่องคิดเลข", 
                       fg_color="#333", border_color="white", border_width=1,
                       command=lambda: self.tab_control.set("🧮 ทั่วไป"))
-        self.btn_back_calc.pack(pady=30, side="bottom")
+        self.btn_back_calc.pack(pady=20, side="bottom")
 
     def setup_tab1(self):
         ctk.CTkLabel(self.tab1, text="ราคาสินค้า:", font=("Sarabun", 16)).pack(pady=5)
@@ -141,23 +147,35 @@ class SuperCalc(ctk.CTk):
     def calc_general(self):
         expr = self.ent_gen.get()
         if not expr: return
+        
+        allowed_chars = set("0123456789.+-*/%() abcdefABCDEFxX")
+        
+        if not all(char in allowed_chars or char.isspace() for char in expr):
+            self.lbl_res_gen.configure(text="Security Alert! 🚫")
+            messagebox.showwarning("Security", "พบตัวอักษรต้องห้าม! (อนุญาตเฉพาะเลข, สูตร, และ A-F)")
+            return
+        
         try:
-            res = eval(expr) 
+            res = eval(expr) # nosec
             res_text = f"{int(res):,}" if res == int(res) else f"{res:,.2f}"
             self.lbl_res_gen.configure(text=res_text)
             self.save_log(f"General | {expr} = {res_text}")
         except: self.lbl_res_gen.configure(text="Error")
 
     def convert_base(self):
-        val_str = self.ent_prog.get()
-        if not val_str: return
+        num_str = self.ent_prog_num.get().strip()
+        base_str = self.ent_prog_base.get().strip()
+        if not num_str or not base_str: return
         try:
-            val = int(val_str)
+            base = int(base_str)
+            val = int(num_str, base) # แปลงเลขตามฐานที่ระบุ
+            
+            self.lbl_dec.configure(text=f"DEC (10): {val}")
             self.lbl_hex.configure(text=f"HEX (16): {hex(val).upper().replace('0X', '')}")
             self.lbl_oct.configure(text=f"OCT (8) : {oct(val).replace('0O', '')}")
             self.lbl_bin.configure(text=f"BIN (2) : {bin(val).replace('0B', '')}")
-            self.save_log(f"Base | Dec:{val} -> Hex/Oct/Bin")
-        except: messagebox.showerror("Error", "ใส่ตัวเลขจำนวนเต็มเท่านั้น")
+            self.save_log(f"Base | Input:{num_str}(Base{base}) -> Dec:{val}")
+        except: messagebox.showerror("Error", f"ค่า '{num_str}' ไม่ถูกต้องในฐาน {base_str}")
 
     def calc_discount(self, mode):
         try:
@@ -203,11 +221,13 @@ class SuperCalc(ctk.CTk):
             self.refresh_history()
 
     def clear_all(self):
-        for ent in [self.ent_gen, self.ent_prog, self.ent_p1, self.ent_pct1, self.ent_s2, self.ent_r2]:
+        for ent in [self.ent_gen, self.ent_prog_num, self.ent_prog_base, self.ent_p1, self.ent_pct1, self.ent_s2, self.ent_r2]:
             ent.delete(0, "end")
+        self.ent_prog_base.insert(0, "10") # คืนค่าฐาน 10
         self.lbl_res_gen.configure(text="0")
         self.lbl_res1.configure(text="...")
         self.lbl_res2.configure(text="...")
+        self.lbl_dec.configure(text="DEC (10): -")
         self.lbl_hex.configure(text="HEX (16): -")
         self.lbl_oct.configure(text="OCT (8) : -")
         self.lbl_bin.configure(text="BIN (2) : -")
@@ -216,14 +236,16 @@ class SuperCalc(ctk.CTk):
     def tab_clear_focus_logic(self):
         current = self.tab_control.get()
         if current == "🧮 ทั่วไป": self.ent_gen.focus()
-        elif current == "💻 นักพัฒนา": self.ent_prog.focus()
+        elif current == "💻 นักพัฒนา": self.ent_prog_num.focus()
         elif current == "🏷️ ส่วนลด": self.ent_p1.focus()
         elif current == "💰 คอมมิชชั่น": self.ent_s2.focus()
 
     def bind_keys(self):
-
+    
         self.ent_gen.bind('<Return>', lambda e: self.calc_general())
-        self.ent_prog.bind('<Return>', lambda e: self.convert_base())
+
+        self.ent_prog_num.bind('<Return>', lambda e: self.ent_prog_base.focus())
+        self.ent_prog_base.bind('<Return>', lambda e: self.btn_convert.focus()) 
         
         self.ent_p1.bind('<Return>', lambda e: self.ent_pct1.focus())
         self.ent_pct1.bind('<Return>', lambda e: self.btn_minus.focus()) 
@@ -251,8 +273,10 @@ class SuperCalc(ctk.CTk):
         self.btn_go_hack.bind('<Up>', lambda e: self.btn_calc_gen.focus())
         self.btn_go_hack.bind('<Down>', lambda e: self.btn_clear.focus())
 
-        self.ent_prog.bind('<Down>', lambda e: self.btn_convert.focus())
-        self.btn_convert.bind('<Up>', lambda e: self.ent_prog.focus())
+        self.ent_prog_num.bind('<Down>', lambda e: self.ent_prog_base.focus())
+        self.ent_prog_base.bind('<Up>', lambda e: self.ent_prog_num.focus())
+        self.ent_prog_base.bind('<Down>', lambda e: self.btn_convert.focus())
+        self.btn_convert.bind('<Up>', lambda e: self.ent_prog_base.focus())
         self.btn_convert.bind('<Down>', lambda e: self.btn_back_calc.focus())
         self.btn_back_calc.bind('<Up>', lambda e: self.btn_convert.focus())
         self.btn_back_calc.bind('<Down>', lambda e: self.btn_clear.focus())
@@ -285,7 +309,11 @@ class SuperCalc(ctk.CTk):
                     self.btn_del_his, self.btn_clear]
         for btn in all_btns:
             btn.bind('<FocusIn>', lambda e, b=btn: b.configure(border_color="white", border_width=2))
-            btn.bind('<FocusOut>', lambda e, b=btn: b.configure(border_color=b._fg_color, border_width=0) if b != self.btn_go_hack else b.configure(border_color="#00FF00", border_width=1))
+            # คืนค่าสีเดิม (แต่ปุ่ม Hack ให้คืนเป็นสีเขียว)
+            if btn == self.btn_go_hack:
+                 btn.bind('<FocusOut>', lambda e, b=btn: b.configure(border_color="#00FF00", border_width=1))
+            else:
+                 btn.bind('<FocusOut>', lambda e, b=btn: b.configure(border_color=b._fg_color, border_width=0))
 
     def up_from_clear(self):
         current = self.tab_control.get()
@@ -300,7 +328,7 @@ class SuperCalc(ctk.CTk):
         try:
             new_idx = (tabs.index(self.tab_control.get()) + direction) % len(tabs)
             self.tab_control.set(tabs[new_idx])
-            [self.ent_gen, self.ent_prog, self.ent_p1, self.ent_s2, self.btn_refresh][new_idx].focus()
+            [self.ent_gen, self.ent_prog_num, self.ent_p1, self.ent_s2, self.btn_refresh][new_idx].focus()
         except: pass
 
 if __name__ == "__main__":
