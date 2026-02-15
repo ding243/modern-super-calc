@@ -7,6 +7,7 @@
 | Version | Supported |
 | Version |  Status  |   Notes  |
 | ------- | -------  | -------- |
+|   V.2.1 |Current ✅|( Bug fix supported )|
 |   V.2   |Current ✅| ( Bug fix supported )|
 |   V.1   | version  | ( Stop. Editing supported )|
 
